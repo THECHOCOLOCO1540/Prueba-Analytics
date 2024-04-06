@@ -1,0 +1,34 @@
+# Instalar y cargar la librería 'sendmailR' para enviar correos electrónicos
+# Instalar con: install.packages("sendmailR")
+library(sendmailR)
+
+# Definir la función para enviar correos electrónicos
+enviar_encuesta <- function(correo_destino) {
+  # Cuerpo del correo electrónico
+  asunto <- "Encuesta de Satisfacción del Hotel XYZ"
+  mensaje <- paste("Estimado/a Huésped,\n\n",
+                   "Gracias por hospedarse en el Hotel XYZ. Nos gustaría conocer su opinión sobre su estadía.\n",
+                   "Por favor, tome unos minutos para completar nuestra encuesta de satisfacción.\n",
+                   "Enlace a la encuesta: [INSERTAR ENLACE AQUÍ]\n\n",
+                   "Atentamente,\n",
+                   "Equipo del Hotel XYZ")
+  
+  # Configuración del servidor de correo
+  correo <- "tu.correo@gmail.com"  # Tu dirección de correo
+  contraseña <- "tu_contraseña"    # Tu contraseña de correo
+  
+  # Enviar el correo electrónico
+  sendmail(from = correo,
+           to = correo_destino,
+           subject = asunto,
+           msg = mensaje,
+           smtp = list(host.name = "smtp.gmail.com",
+                       port = 465,
+                       user.name = correo,
+                       passwd = contraseña,
+                       ssl = TRUE))
+}
+
+# Ejemplo de uso: enviar la encuesta a un correo de prueba
+correo_prueba <- "correo.prueba@gmail.com"
+enviar_encuesta(correo_prueba)
